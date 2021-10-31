@@ -24,6 +24,7 @@ async function run() {
         // Establish and verify connection
         const database = client.db("adventure");
         const TourCollection = database.collection("TourCollection");
+        const OrderCollection = database.collection("OrderCollection");
         console.log("Connected successfully to server");
 
         // toures api created. Now this route should provide touring place
@@ -31,6 +32,13 @@ async function run() {
             const cursor = TourCollection.find({});
             const allTour = await cursor.toArray();
             res.json(allTour);
+        });
+
+        app.post("/placeOrder", async (req, res) => {
+            const data = req.body;
+            const result = await OrderCollection.insertOne(data);
+            console.log(data);
+            res.json(result);
         });
     } finally {
         // Ensures that the client will close when you finish/error
@@ -42,9 +50,9 @@ app.get("/", (req, res) => {
     res.send("This is from express js server");
 });
 
-app.get("/api", (req, res) => {
-    res.send("This is from api endpoints");
-});
+// app.get("/api", (req, res) => {
+//     res.send("This is from api endpoints");
+// });
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
