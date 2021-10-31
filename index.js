@@ -49,6 +49,18 @@ async function run() {
 
             res.json(orders);
         });
+
+        // delete order
+
+        app.delete("/orders/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await OrderCollection.deleteOne(query);
+
+            console.log("deleting user with id ", result);
+
+            res.json(result);
+        });
     } finally {
         // Ensures that the client will close when you finish/error
         //   await client.close();
@@ -63,5 +75,5 @@ app.get("/", (req, res) => {
 //     res.send("This is from api endpoints");
 // });
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Adventureous-tour app listening at http://localhost:${port}`);
 });
