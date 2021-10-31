@@ -66,7 +66,6 @@ async function run() {
         app.post("/addService", async (req, res) => {
             const newService = req.body;
             const result = await TourCollection.insertOne(newService);
-            console.log("got new user", req.body);
             console.log("added user", result);
             res.json(result);
         });
