@@ -40,6 +40,15 @@ async function run() {
             console.log(data);
             res.json(result);
         });
+
+        // get specific user place order in the ui
+
+        app.get("/myorder", async (req, res) => {
+            const cursor = OrderCollection.find({});
+            const orders = await cursor.toArray();
+
+            res.json(orders);
+        });
     } finally {
         // Ensures that the client will close when you finish/error
         //   await client.close();
