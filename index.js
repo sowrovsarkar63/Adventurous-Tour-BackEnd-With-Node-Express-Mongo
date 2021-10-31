@@ -33,7 +33,7 @@ async function run() {
             const allTour = await cursor.toArray();
             res.json(allTour);
         });
-
+        // store place order
         app.post("/placeOrder", async (req, res) => {
             const data = req.body;
             const result = await OrderCollection.insertOne(data);
